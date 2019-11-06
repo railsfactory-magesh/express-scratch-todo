@@ -4,12 +4,13 @@
   "description": "application from scratch",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "DEBUG=http,mail,knex:*,express:* node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Magesh",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "hbs": "^4.0.6",
     "knex": "^0.19.5",
