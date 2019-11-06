@@ -5,15 +5,17 @@ const port = 4000;
 const environment = process.env.NODE_ENV || "development";
 const config = require("./knexfile")[environment];
 const knex = require("knex")(config);
+const cors = require("cors"  );
 
-// app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors())
 
 app.get("/", (req, res) => {
   knex("todos")
     .select()
     .then(result => {
-      res.send(result);
+      res.json(result);
     })
     .catch(err => {
       res.json({ status: 500, error: err });
@@ -38,7 +40,6 @@ function buildTodoFields(req) {
 }
 
 app.post("/todos", (req, res) => {
-  console.log("request body", req.body);
   const todo = buildTodoFields(req);
   if (validTodo(todo)) {
     knex("todos")
